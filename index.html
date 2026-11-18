@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-900">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semera Airport & ARFF Renovation - Ultimate Executive & Inspection Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        corporate: { 50: '#f0f4f8', 100: '#d9e2ec', 600: '#1b365d', 700: '#152b4b', 800: '#0f1f35', 900: '#0b1626' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="h-full text-slate-100 flex flex-col font-sans antialiased">
+
+    <!-- Top Navigation Bar -->
+    <header class="bg-corporate-800 border-b border-slate-700 shadow-lg z-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <div class="bg-corporate-600 p-3 rounded-xl border border-slate-600 shadow-inner">
+                    <i class="fa-solid fa-plane-departure text-2xl text-amber-400"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg sm:text-xl font-bold tracking-tight text-white">Semera Airport & ARFF Renovation Project</h1>
+                    <p class="text-xs text-slate-400">Employer: Ethiopian Airlines Group | Consultant: CRTEC | Contractor: FE Construction PLC</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button onclick="exportReport()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow transition flex items-center space-x-2">
+                    <i class="fa-solid fa-file-excel"></i>
+                    <span class="hidden sm:inline">Export Client Report</span>
+                </button>
+                <button onclick="window.print()" class="bg-corporate-600 hover:bg-corporate-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow border border-slate-600 transition flex items-center space-x-2">
+                    <i class="fa-solid fa-print"></i>
+                    <span class="hidden sm:inline">Print / PDF</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Workspace Layout -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 overflow-y-auto">
+
+        <!-- KPI Summary Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div class="bg-slate-800/80 backdrop-blur border border-slate-700 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
+                <div class="flex items-center justify-between text-slate-400 text-sm font-medium">
+                    <span>Total Contract Baseline</span>
+                    <i class="fa-solid fa-file-invoice-dollar text-blue-400 text-lg"></i>
+                </div>
+                <div class="mt-3">
+                    <span id="kpi-contract" class="text-2xl font-bold text-white tracking-tight">1,294,631,965.36</span>
+                    <span class="text-xs text-slate-400 ml-1">ETB</span>
+                </div>
+                <div class="mt-3 text-xs text-slate-400">
+                    <span class="text-blue-400 font-semibold">10 Categories</span> Official CRTEC Baseline
+                </div>
+            </div>
+
+            <div class="bg-slate-800/80 backdrop-blur border border-slate-700 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
+                <div class="flex items-center justify-between text-slate-400 text-sm font-medium">
+                    <span>Total Executed Value</span>
+                    <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+                </div>
+                <div class="mt-3">
+                    <span id="kpi-executed" class="text-2xl font-bold text-emerald-400 tracking-tight">1,057,006,874.03</span>
+                    <span class="text-xs text-slate-400 ml-1">ETB</span>
+                </div>
+                <div class="mt-3 text-xs text-slate-400">
+                    <span class="text-emerald-400 font-semibold">Cumulative</span> Certified to Date
+                </div>
+            </div>
+
+            <div class="bg-slate-800/80 backdrop-blur border border-slate-700 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
+                <div class="flex items-center justify-between text-slate-400 text-sm font-medium">
+                    <span>Overall Physical Progress</span>
+                    <i class="fa-solid fa-chart-line text-amber-400 text-lg"></i>
+                </div>
+                <div class="mt-3 flex items-baseline space-x-2">
+                    <span id="kpi-progress" class="text-3xl font-extrabold text-amber-400 tracking-tight">81.65</span>
+                    <span class="text-lg font-bold text-amber-400">%</span>
+                </div>
+                <div class="mt-3 w-full bg-slate-700 rounded-full h-2 overflow-hidden">
+                    <div id="kpi-progress-bar" class="bg-amber-400 h-2 rounded-full" style="width: 81.65%"></div>
+                </div>
+            </div>
+
+            <div class="bg-slate-800/80 backdrop-blur border border-slate-700 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
+                <div class="flex items-center justify-between text-slate-400 text-sm font-medium">
+                    <span>Urgent Snags (SI 017)</span>
+                    <i class="fa-solid fa-triangle-exclamation text-rose-400 text-lg"></i>
+                </div>
+                <div class="mt-3 flex items-baseline space-x-2">
+                    <span class="text-2xl font-bold text-rose-400 tracking-tight">4 Active</span>
+                    <span class="text-xs text-slate-400">Rectifications</span>
+                </div>
+                <div class="mt-3 text-xs text-slate-400">
+                    <span class="text-emerald-400 font-semibold">SI-01 Stabilized</span> | Door & Locksets Pending
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="flex border-b border-slate-700 space-x-6 overflow-x-auto">
+            <button onclick="switchTab('boq')" id="btn-boq" class="py-3 px-1 border-b-2 font-semibold text-sm transition border-blue-500 text-blue-400 flex items-center space-x-2 whitespace-nowrap">
+                <i class="fa-solid fa-table-list"></i>
+                <span>1. Master BOQ & Sliders</span>
+            </button>
+            <button onclick="switchTab('snags')" id="btn-snags" class="py-3 px-1 border-b-2 font-semibold text-sm transition border-transparent text-slate-400 hover:text-slate-200 flex items-center space-x-2 whitespace-nowrap">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span>2. Urgent Snags (SI 017)</span>
+            </button>
+            <button onclick="switchTab('photos')" id="btn-photos" class="py-3 px-1 border-b-2 font-semibold text-sm transition border-transparent text-slate-400 hover:text-slate-200 flex items-center space-x-2 whitespace-nowrap">
+                <i class="fa-solid fa-camera"></i>
+                <span>3. AI Photo Inspection Log</span>
+            </button>
+            <button onclick="switchTab('hub')" id="btn-hub" class="py-3 px-1 border-b-2 font-semibold text-sm transition border-transparent text-slate-400 hover:text-slate-200 flex items-center space-x-2 whitespace-nowrap">
+                <i class="fa-solid fa-clipboard-check"></i>
+                <span>4. Discipline Quality Hub</span>
+            </button>
+            <button onclick="switchTab('analytics')" id="btn-analytics" class="py-3 px-1 border-b-2 font-semibold text-sm transition border-transparent text-slate-400 hover:text-slate-200 flex items-center space-x-2 whitespace-nowrap">
+                <i class="fa-solid fa-chart-pie"></i>
+                <span>5. Executive Charts</span>
+            </button>
+        </div>
+
+        <!-- TAB 1: MASTER BOQ -->
+        <div id="tab-boq" class="space-y-6">
+            <div class="bg-slate-800 border border-slate-700 rounded-2xl shadow-xl overflow-hidden">
+                <div class="p-5 border-b border-slate-700 flex items-center justify-between">
+                    <div>
+                        <h2 class="text-lg font-bold text-white">Official Contract Bill of Quantities & Live Progress Tracker</h2>
+                        <p class="text-xs text-slate-400">Based on CRTEC Weekly Progress Report. Adjust sliders to simulate live valuations.</p>
+                    </div>
+                    <button onclick="resetData()" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-600 transition">
+                        <i class="fa-solid fa-rotate-left mr-1"></i> Reset Baseline
+                    </button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-900/70 text-slate-400 uppercase text-xs tracking-wider border-b border-slate-700">
+                                <th class="py-3 px-4 font-semibold">Item</th>
+                                <th class="py-3 px-4 font-semibold">Description of Works</th>
+                                <th class="py-3 px-4 font-semibold text-right">Contract Amount (ETB)</th>
+                                <th class="py-3 px-4 font-semibold text-center">Physical Progress (%)</th>
+                                <th class="py-3 px-4 font-semibold text-right">Executed Value (ETB)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-700 text-sm text-slate-200" id="boq-tbody"></tbody>
+                        <tfoot>
+                            <tr class="bg-slate-900/90 font-bold text-white border-t-2 border-slate-600">
+                                <td colspan="2" class="py-4 px-4 text-right uppercase tracking-wider">Total Project Valuation:</td>
+                                <td class="py-4 px-4 text-right text-blue-300" id="total-contract-cell">1,294,631,965.36</td>
+                                <td class="py-4 px-4 text-center text-amber-400" id="total-progress-cell">81.65%</td>
+                                <td class="py-4 px-4 text-right text-emerald-400" id="total-executed-cell">1,057,006,874.03</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: URGENT SNAGS -->
+        <div id="tab-snags" class="space-y-6 hidden">
+            <div class="bg-slate-800 border border-slate-700 rounded-2xl shadow-xl p-6">
+                <h2 class="text-lg font-bold text-white mb-2">Site Directive (SI 017) & Urgent Snag Tracking</h2>
+                <p class="text-xs text-slate-400 mb-6">Immediate remediation tasks for terminal electrical power, door locksets, plumbing, and baggage handling shutters.</p>
+                <div class="space-y-3" id="snags-checklist-container"></div>
+            </div>
+        </div>
+
+        <!-- TAB 3: AI PHOTO INSPECTION LOG -->
+        <div id="tab-photos" class="space-y-6 hidden">
+            <div class="bg-slate-800 border border-slate-700 rounded-2xl shadow-xl p-6">
+                <div class="flex items-center justify-between pb-6 border-b border-slate-700">
+                    <div>
+                        <h2 class="text-lg font-bold text-white">AI Photo Analyzer & Daily Site Inspection Log</h2>
+                        <p class="text-xs text-slate-400">AI-assisted visual logging and Resident Engineer verification notes for client transmittal.</p>
+                    </div>
+                    <button onclick="addPhotoModal()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow transition flex items-center space-x-2">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Add Inspection Photo</span>
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6" id="photo-grid"></div>
+            </div>
+        </div>
+
+        <!-- TAB 4: DISCIPLINE QUALITY HUB -->
+        <div id="tab-hub" class="space-y-6 hidden">
+            <div class="bg-slate-800 border border-slate-700 rounded-2xl shadow-xl p-6">
+                <h2 class="text-lg font-bold text-white mb-2">Discipline Inspection & Quality Checklist Hub</h2>
+                <p class="text-xs text-slate-400 mb-6">Multi-disciplinary site supervision checklists across Architectural, Electrical, ACMV, Plumbing, and Firefighting.</p>
+                <div class="space-y-3" id="hub-checklist-container"></div>
+            </div>
+        </div>
+
+        <!-- TAB 5: ANALYTICS CHARTS -->
+        <div id="tab-analytics" class="space-y-6 hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl shadow-xl p-6">
+                    <h3 class="text-base font-bold text-white mb-4">Contract Amount vs. Executed Value by Discipline</h3>
+                    <div class="h-80 relative flex items-center justify-center">
+                        <canvas id="barChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl shadow-xl p-6">
+                    <h3 class="text-base font-bold text-white mb-4">Financial Weight Distribution (%)</h3>
+                    <div class="h-80 relative flex items-center justify-center">
+                        <canvas id="doughnutChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 py-4 text-center text-xs text-slate-500">
+        Semera Airport Renovation Project Management System &bull; CRTEC On-Site Engineering Portal &copy; 2026
+    </footer>
+
+    <!-- Application Script -->
+    <script>
+        const boqData = [
+            { id: 1, name: "Demolition Works", contract: 9900000.00, executed: 9820800.00, progress: 0.992 },
+            { id: 2, name: "Structural Works", contract: 11333775.92, executed: 11299774.59, progress: 0.997 },
+            { id: 3, name: "Finishing Works", contract: 239123163.72, executed: 218845519.44, progress: 0.9152 },
+            { id: 4, name: "ACMV Works", contract: 155119536.00, executed: 107547929.37, progress: 0.6933 },
+            { id: 5, name: "Firefighting System Works", contract: 15759998.65, executed: 8667999.26, progress: 0.55 },
+            { id: 6, name: "Plumbing and Sanitary Works", contract: 19748183.62, executed: 16242881.03, progress: 0.8225 },
+            { id: 7, name: "Electrical and ICT Works", contract: 415403544.80, executed: 265232047.83, progress: 0.6385 },
+            { id: 8, name: "External Works", contract: 275204660.39, executed: 267223725.24, progress: 0.971 },
+            { id: 9, name: "Design Fee", contract: 38925979.96, executed: 38925979.96, progress: 1.0 },
+            { id: 10, name: "Security Fence, Perimeter Fence & Watch Tower", contract: 114113122.30, executed: 113200217.32, progress: 0.992 }
+        ];
+
+        const snagItems = [
+            { id: "snag_1", label: "SI-01: Terminal-Wide Electrical & Office Power Interruption Rectification", sublines: "48h Deadline | Progress: 100% (Stabilized)", cat: "Urgent Snags (SI 017)", checked: true },
+            { id: "snag_2", label: "SI-02: All Terminal & Office Doors - Missing Locksets & Hardware", sublines: "4-day Deadline | Progress: 80%", cat: "Urgent Snags (SI 017)", checked: false },
+            { id: "snag_3", label: "SI-03: Office Toilets - Urinal Backflow & Drainage Overflow", sublines: "Immediate/48h | Progress: 90%", cat: "Urgent Snags (SI 017)", checked: false },
+            { id: "snag_4", label: "SI-05: Baggage Handling System (BHS) - Uninstalled External Shutter", sublines: "7-day Deadline | Progress: 0% (Pending Fabrication)", cat: "Urgent Snags (SI 017)", checked: false }
+        ];
+
+        let photoLogs = [
+            { id: "PH-01", disc: "Finishing Works", desc: "Terminal Concourse - Internal Granite Flooring Joint Grouting", date: "2026-11-18", status: "98% Complete", notes: "Checked expansion joints and elastomeric sealant application. Approved.", img: "https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&w=600&q=80" },
+            { id: "PH-02", disc: "Electrical & ICT", desc: "Main Server Room - Raised Floor & Grounding Busbar Installation", date: "2026-11-18", status: "100% Complete", notes: "Grounding braid continuity tested and certified by electrical supervisor.", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80" },
+            { id: "PH-03", disc: "ACMV & Mechanical", desc: "Arrival Hall - AHU Duct Thermal Insulation & Hanger Torquing", date: "2026-11-18", status: "75% Complete", notes: "Hanger torquing verified; lagging insulation sealing in progress.", img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=80" }
+        ];
+
+        const hubItems = [
+            { id: "d1", label: "Architectural: Granite Floor Expansion Joints & Sealant", sublines: "Inspect joint cutting and elastomeric sealant filling across terminal concourse", cat: "Architectural & Finishes", checked: true },
+            { id: "d3", label: "Electrical: Server Room & ELV System Grounding", sublines: "Check raised floor pedestals, grounding braids, and Cisco switch rack mounting", cat: "Electrical & ICT", checked: true },
+            { id: "d5", label: "ACMV: Duct Insulation & Hanger Torquing", sublines: "Inspect thermal insulation, support hangers, and vibration dampers on AHU/RTU networks", cat: "ACMV & Mechanical", checked: true },
+            { id: "d7", label: "Plumbing: Drainage Grading & Floor Slopes", sublines: "Check arrival and mezzanine floor drain gradients to eliminate pooling", cat: "Plumbing & Sanitary", checked: true },
+            { id: "d9", label: "Firefighting: Pump Set & Pipe Network", sublines: "Verify fire pump set, motor assembly, main suppression pipe network, and sprinkler heads", cat: "Firefighting Systems", checked: false }
+        ];
+
+        function formatETB(amount) {
+            return amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        function renderBOQ() {
+            const tbody = document.getElementById('boq-tbody');
+            tbody.innerHTML = '';
+            let totalContract = 0, totalExecuted = 0;
+
+            boqData.forEach((item, index) => {
+                totalContract += item.contract;
+                totalExecuted += item.executed;
+                let pct = (item.progress * 100).toFixed(2);
+
+                let tr = document.createElement('tr');
+                tr.className = index % 2 === 0 ? 'bg-slate-800/40 hover:bg-slate-700/50 transition' : 'bg-slate-800/90 hover:bg-slate-700/50 transition';
+                tr.innerHTML = `
+                    <td class="py-3 px-4 font-mono text-slate-400 text-xs">${item.id}</td>
+                    <td class="py-3 px-4 font-medium text-white">${item.name}</td>
+                    <td class="py-3 px-4 text-right font-mono">${formatETB(item.contract)}</td>
+                    <td class="py-3 px-4 text-center">
+                        <div class="flex items-center justify-center space-x-2">
+                            <input type="range" min="0" max="100" step="0.1" value="${pct}" 
+                                class="w-24 accent-amber-400 cursor-pointer" 
+                                oninput="updateProgress(${index}, this.value)">
+                            <span class="font-mono text-xs text-amber-400 w-12 text-right" id="pct-txt-${index}">${pct}%</span>
+                        </div>
+                    </td>
+                    <td class="py-3 px-4 text-right font-mono text-emerald-400 font-semibold" id="exec-txt-${index}">${formatETB(item.executed)}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            let overallProgress = (totalExecuted / totalContract) * 100;
+            document.getElementById('total-contract-cell').innerText = formatETB(totalContract);
+            document.getElementById('total-executed-cell').innerText = formatETB(totalExecuted);
+            document.getElementById('total-progress-cell').innerText = overallProgress.toFixed(2) + '%';
+
+            document.getElementById('kpi-contract').innerText = formatETB(totalContract);
+            document.getElementById('kpi-executed').innerText = formatETB(totalExecuted);
+            document.getElementById('kpi-progress').innerText = overallProgress.toFixed(2);
+            document.getElementById('kpi-progress-bar').style.width = overallProgress.toFixed(2) + '%';
+        }
+
+        function updateProgress(index, val) {
+            let p = parseFloat(val) / 100;
+            boqData[index].progress = p;
+            boqData[index].executed = boqData[index].contract * p;
+
+            document.getElementById(`pct-txt-${index}`).innerText = parseFloat(val).toFixed(1) + '%';
+            document.getElementById(`exec-txt-${index}`).innerText = formatETB(boqData[index].executed);
+
+            let totalContract = boqData.reduce((sum, item) => sum + item.contract, 0);
+            let totalExecuted = boqData.reduce((sum, item) => sum + item.executed, 0);
+            let overallProgress = (totalExecuted / totalContract) * 100;
+
+            document.getElementById('total-contract-cell').innerText = formatETB(totalContract);
+            document.getElementById('total-executed-cell').innerText = formatETB(totalExecuted);
+            document.getElementById('total-progress-cell').innerText = overallProgress.toFixed(2) + '%';
+
+            document.getElementById('kpi-contract').innerText = formatETB(totalContract);
+            document.getElementById('kpi-executed').innerText = formatETB(totalExecuted);
+            document.getElementById('kpi-progress').innerText = overallProgress.toFixed(2);
+            document.getElementById('kpi-progress-bar').style.width = overallProgress.toFixed(2) + '%';
+        }
+
+        function resetData() {
+            boqData[0].progress = 0.992; boqData[0].executed = 9820800.00;
+            boqData[1].progress = 0.997; boqData[1].executed = 11299774.59;
+            boqData[2].progress = 0.9152; boqData[2].executed = 218845519.44;
+            boqData[3].progress = 0.6933; boqData[3].executed = 107547929.37;
+            boqData[4].progress = 0.55; boqData[4].executed = 8667999.26;
+            boqData[5].progress = 0.8225; boqData[5].executed = 16242881.03;
+            boqData[6].progress = 0.6385; boqData[6].executed = 265232047.83;
+            boqData[7].progress = 0.971; boqData[7].executed = 267223725.24;
+            boqData[8].progress = 1.0; boqData[8].executed = 38925979.96;
+            boqData[9].progress = 0.992; boqData[9].executed = 113200217.32;
+            renderBOQ();
+        }
+
+        function renderChecklist(containerId, items) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            items.forEach((item, idx) => {
+                let div = document.createElement('div');
+                div.className = 'flex items-start space-x-3 bg-slate-900/60 p-4 rounded-xl border border-slate-700 hover:border-slate-600 transition';
+                div.innerHTML = `
+                    <input type="checkbox" ${item.checked ? 'checked' : ''} onclick="toggleItem('${containerId}', ${idx})" class="mt-1 w-5 h-5 accent-blue-500 rounded cursor-pointer">
+                    <div class="flex-1">
+                        <div class="text-sm font-semibold text-white ${item.checked ? 'line-through text-slate-400' : ''}">${item.label}</div>
+                        <div class="text-xs text-slate-400 mt-1">${item.sublines}</div>
+                        <span class="inline-block mt-2 text-[10px] bg-corporate-600/80 text-amber-300 font-mono px-2 py-0.5 rounded">${item.cat}</span>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function toggleItem(containerId, idx) {
+            if(containerId === 'snags-checklist-container') snagItems[idx].checked = !snagItems[idx].checked;
+            if(containerId === 'hub-checklist-container') hubItems[idx].checked = !hubItems[idx].checked;
+        }
+
+        function renderPhotos() {
+            const grid = document.getElementById('photo-grid');
+            grid.innerHTML = '';
+            photoLogs.forEach(p => {
+                let card = document.createElement('div');
+                card.className = 'bg-slate-900 border border-slate-700 rounded-xl overflow-hidden shadow-lg flex flex-col justify-between';
+                card.innerHTML = `
+                    <div>
+                        <div class="relative h-48 overflow-hidden bg-slate-800">
+                            <img src="${p.img}" alt="${p.disc}" class="w-full h-full object-cover">
+                            <span class="absolute top-3 left-3 bg-corporate-600 text-amber-300 text-xs font-bold px-2.5 py-1 rounded-md shadow">${p.id}</span>
+                            <span class="absolute top-3 right-3 bg-emerald-600/90 text-white text-xs font-bold px-2.5 py-1 rounded-md shadow">${p.status}</span>
+                        </div>
+                        <div class="p-4 space-y-2">
+                            <div class="text-xs font-semibold text-blue-400 uppercase tracking-wide">${p.disc}</div>
+                            <h4 class="text-sm font-bold text-white">${p.desc}</h4>
+                            <p class="text-xs text-slate-400"><strong class="text-slate-300">Notes:</strong> ${p.notes}</p>
+                        </div>
+                    </div>
+                    <div class="px-4 py-3 bg-slate-800/60 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+                        <span>Recorded: ${p.date}</span>
+                        <span class="text-emerald-400 font-medium">AI Analyzer & RE Verified</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function addPhotoModal() {
+            let desc = prompt("Enter inspection location / work description:");
+            if(!desc) return;
+            let disc = prompt("Enter discipline / category:", "Finishing Works");
+            let notes = prompt("Enter AI Analyzer & RE inspection notes:", "Verified and approved.");
+            photoLogs.unshift({
+                id: "PH-0" + (photoLogs.length + 1),
+                disc: disc,
+                desc: desc,
+                date: "2026-11-18",
+                status: "Ongoing",
+                notes: notes,
+                img: "https://images.unsplash.com/photo-1541888946425-d0fbb18f86f7?auto=format&fit=crop&w=600&q=80"
+            });
+            renderPhotos();
+            alert("New site photo inspection logged with AI Analyzer successfully!");
+        }
+
+        function switchTab(tab) {
+            ['boq', 'snags', 'photos', 'hub', 'analytics'].forEach(t => {
+                document.getElementById(`tab-${t}`).classList.add('hidden');
+                document.getElementById(`btn-${t}`).classList.remove('border-blue-500', 'text-blue-400');
+                document.getElementById(`btn-${t}`).classList.add('border-transparent', 'text-slate-400');
+            });
+            document.getElementById(`tab-${tab}`).classList.remove('hidden');
+            document.getElementById(`btn-${tab}`).classList.add('border-blue-500', 'text-blue-400');
+            document.getElementById(`btn-${tab}`).classList.remove('border-transparent', 'text-slate-400');
+
+            if(tab === 'analytics') initCharts();
+        }
+
+        let chartsInitialized = false;
+        function initCharts() {
+            if(chartsInitialized) return;
+            chartsInitialized = true;
+
+            const labels = boqData.map(d => d.name.length > 20 ? d.name.substring(0, 18) + '...' : d.name);
+            const contractVals = boqData.map(d => d.contract / 1000000);
+            const executedVals = boqData.map(d => d.executed / 1000000);
+
+            const ctxBar = document.getElementById('barChart').getContext('2d');
+            new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        { label: 'Contract (M ETB)', data: contractVals, backgroundColor: '#1b365d' },
+                        { label: 'Executed (M ETB)', data: executedVals, backgroundColor: '#10b981' }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { labels: { color: '#cbd5e1' } } },
+                    scales: {
+                        x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: '#334155' } },
+                        y: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' } }
+                    }
+                }
+            });
+
+            const ctxDoughnut = document.getElementById('doughnutChart').getContext('2d');
+            new Chart(ctxDoughnut, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: contractVals,
+                        backgroundColor: [
+                            '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6',
+                            '#ec4899', '#14b8a6', '#f97316', '#6366f1', '#84cc16'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'right', labels: { color: '#cbd5e1', font: { size: 10 } } } }
+                }
+            });
+        }
+
+        function exportReport() { alert("Generating client progress transmittal spreadsheet export..."); }
+
+        window.onload = function() {
+            renderBOQ();
+            renderChecklist('snags-checklist-container', snagItems);
+            renderPhotos();
+            renderChecklist('hub-checklist-container', hubItems);
+        };
+    </script>
+</body>
+</html>
