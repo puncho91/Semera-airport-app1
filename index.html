@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semera Airport & ARFF Renovation - Ultimate Executive & Inspection Hub</title>
+    <title>Semera Airport & ARFF Renovation - Ultimate Master BOQ, Snags & Inspection Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -51,7 +51,7 @@
 
         <!-- KPI Summary Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            <div class="bg-slate-800/80 backdrop-blur border border-slate-700 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
+            <div class="bg-slate-800/85 backdrop-blur border border-slate-700 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
                 <div class="flex items-center justify-between text-slate-400 text-sm font-medium">
                     <span>Total Contract Baseline</span>
                     <i class="fa-solid fa-file-invoice-dollar text-blue-400 text-lg"></i>
@@ -61,11 +61,11 @@
                     <span class="text-xs text-slate-400 ml-1">ETB</span>
                 </div>
                 <div class="mt-3 text-xs text-slate-400">
-                    <span class="text-blue-400 font-semibold">10 Categories</span> Official CRTEC Baseline
+                    <span class="text-blue-400 font-semibold">10 Categories</span> Full Itemized Scope
                 </div>
             </div>
 
-            <div class="bg-slate-800/80 backdrop-blur border border-slate-700 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
+            <div class="bg-slate-800/85 backdrop-blur border border-slate-700 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
                 <div class="flex items-center justify-between text-slate-400 text-sm font-medium">
                     <span>Total Executed Value</span>
                     <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
@@ -75,11 +75,11 @@
                     <span class="text-xs text-slate-400 ml-1">ETB</span>
                 </div>
                 <div class="mt-3 text-xs text-slate-400">
-                    <span class="text-emerald-400 font-semibold">Cumulative</span> Certified to Date
+                    <span class="text-emerald-400 font-semibold">Live Sum</span> Across All Sub-Items
                 </div>
             </div>
 
-            <div class="bg-slate-800/80 backdrop-blur border border-slate-700 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
+            <div class="bg-slate-800/85 backdrop-blur border border-slate-700 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
                 <div class="flex items-center justify-between text-slate-400 text-sm font-medium">
                     <span>Overall Physical Progress</span>
                     <i class="fa-solid fa-chart-line text-amber-400 text-lg"></i>
@@ -89,79 +89,87 @@
                     <span class="text-lg font-bold text-amber-400">%</span>
                 </div>
                 <div class="mt-3 w-full bg-slate-700 rounded-full h-2 overflow-hidden">
-                    <div id="kpi-progress-bar" class="bg-amber-400 h-2 rounded-full" style="width: 81.65%"></div>
+                    <div id="kpi-progress-bar" class="bg-amber-400 h-2 rounded-full transition-all duration-300" style="width: 81.65%"></div>
                 </div>
             </div>
 
-            <div class="bg-slate-800/80 backdrop-blur border border-slate-700 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
+            <div class="bg-slate-800/85 backdrop-blur border border-slate-700 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
                 <div class="flex items-center justify-between text-slate-400 text-sm font-medium">
-                    <span>Urgent Snags (SI 017)</span>
+                    <span>Remaining Works & Snags</span>
                     <i class="fa-solid fa-triangle-exclamation text-rose-400 text-lg"></i>
                 </div>
                 <div class="mt-3 flex items-baseline space-x-2">
-                    <span class="text-2xl font-bold text-rose-400 tracking-tight">4 Active</span>
-                    <span class="text-xs text-slate-400">Rectifications</span>
+                    <span id="kpi-remaining-val" class="text-xl font-bold text-rose-400 tracking-tight">237.6M</span>
+                    <span class="text-xs text-slate-400">ETB Pending</span>
                 </div>
                 <div class="mt-3 text-xs text-slate-400">
-                    <span class="text-emerald-400 font-semibold">SI-01 Stabilized</span> | Door & Locksets Pending
+                    <span class="text-rose-400 font-semibold" id="kpi-snag-count">4 Active Snags</span> | SI 017 Compliance
                 </div>
             </div>
         </div>
 
         <!-- Tab Navigation -->
-        <div class="flex border-b border-slate-700 space-x-6 overflow-x-auto">
-            <button onclick="switchTab('boq')" id="btn-boq" class="py-3 px-1 border-b-2 font-semibold text-sm transition border-blue-500 text-blue-400 flex items-center space-x-2 whitespace-nowrap">
+        <div class="flex border-b border-slate-700 space-x-4 overflow-x-auto">
+            <button onclick="switchTab('boq')" id="btn-boq" class="py-3 px-3 border-b-2 font-semibold text-sm transition border-blue-500 text-blue-400 flex items-center space-x-2 whitespace-nowrap">
                 <i class="fa-solid fa-table-list"></i>
-                <span>1. Master BOQ & Sliders</span>
+                <span>1. Full Itemized BOQ & Sliders</span>
+            </button>
+            <button onclick="switchTab('remaining')" id="btn-remaining" class="py-3 px-3 border-b-2 font-semibold text-sm transition border-transparent text-slate-400 hover:text-slate-200 flex items-center space-x-2 whitespace-nowrap">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                <span>2. Remaining Works Analysis</span>
             </button>
             <button onclick="switchTab('snags')" id="btn-snags" class="py-3 px-1 border-b-2 font-semibold text-sm transition border-transparent text-slate-400 hover:text-slate-200 flex items-center space-x-2 whitespace-nowrap">
                 <i class="fa-solid fa-triangle-exclamation"></i>
-                <span>2. Urgent Snags (SI 017)</span>
+                <span>3. Snag List & SI 017</span>
             </button>
-            <button onclick="switchTab('photos')" id="btn-photos" class="py-3 px-1 border-b-2 font-semibold text-sm transition border-transparent text-slate-400 hover:text-slate-200 flex items-center space-x-2 whitespace-nowrap">
+            <button onclick="switchTab('photos')" id="btn-photos" class="py-3 px-3 border-b-2 font-semibold text-sm transition border-transparent text-slate-400 hover:text-slate-200 flex items-center space-x-2 whitespace-nowrap">
                 <i class="fa-solid fa-camera"></i>
-                <span>3. AI Photo Inspection Log</span>
+                <span>4. AI Photo Inspection Log</span>
             </button>
-            <button onclick="switchTab('hub')" id="btn-hub" class="py-3 px-1 border-b-2 font-semibold text-sm transition border-transparent text-slate-400 hover:text-slate-200 flex items-center space-x-2 whitespace-nowrap">
+            <button onclick="switchTab('hub')" id="btn-hub" class="py-3 px-3 border-b-2 font-semibold text-sm transition border-transparent text-slate-400 hover:text-slate-200 flex items-center space-x-2 whitespace-nowrap">
                 <i class="fa-solid fa-clipboard-check"></i>
-                <span>4. Discipline Quality Hub</span>
+                <span>5. Discipline Quality Hub</span>
             </button>
-            <button onclick="switchTab('analytics')" id="btn-analytics" class="py-3 px-1 border-b-2 font-semibold text-sm transition border-transparent text-slate-400 hover:text-slate-200 flex items-center space-x-2 whitespace-nowrap">
+            <button onclick="switchTab('analytics')" id="btn-analytics" class="py-3 px-3 border-b-2 font-semibold text-sm transition border-transparent text-slate-400 hover:text-slate-200 flex items-center space-x-2 whitespace-nowrap">
                 <i class="fa-solid fa-chart-pie"></i>
-                <span>5. Executive Charts</span>
+                <span>6. Executive Charts</span>
             </button>
         </div>
 
-        <!-- TAB 1: MASTER BOQ -->
+        <!-- TAB 1: FULL ITEMIZED BOQ -->
         <div id="tab-boq" class="space-y-6">
             <div class="bg-slate-800 border border-slate-700 rounded-2xl shadow-xl overflow-hidden">
-                <div class="p-5 border-b border-slate-700 flex items-center justify-between">
+                <div class="p-5 border-b border-slate-700 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div>
-                        <h2 class="text-lg font-bold text-white">Official Contract Bill of Quantities & Live Progress Tracker</h2>
-                        <p class="text-xs text-slate-400">Based on CRTEC Weekly Progress Report. Adjust sliders to simulate live valuations.</p>
+                        <h2 class="text-lg font-bold text-white">Full Itemized Bill of Quantities (All Sub-Items & Categories)</h2>
+                        <p class="text-xs text-slate-400">Adjust progress sliders item by item. Total Contract Amount, Executed Value, and Remaining Works update live.</p>
                     </div>
-                    <button onclick="resetData()" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-600 transition">
-                        <i class="fa-solid fa-rotate-left mr-1"></i> Reset Baseline
-                    </button>
+                    <div class="flex items-center space-x-3">
+                        <button onclick="resetBOQ()" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-600 transition">
+                            <i class="fa-solid fa-rotate-left mr-1"></i> Reset All Items
+                        </button>
+                    </div>
                 </div>
+
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
+                    <table class="w-full text-left border-collapse" id="boq-table">
                         <thead>
                             <tr class="bg-slate-900/70 text-slate-400 uppercase text-xs tracking-wider border-b border-slate-700">
-                                <th class="py-3 px-4 font-semibold">Item</th>
+                                <th class="py-3 px-4 font-semibold">Item Code</th>
                                 <th class="py-3 px-4 font-semibold">Description of Works</th>
+                                <th class="py-3 px-4 font-semibold">Category</th>
                                 <th class="py-3 px-4 font-semibold text-right">Contract Amount (ETB)</th>
-                                <th class="py-3 px-4 font-semibold text-center">Physical Progress (%)</th>
+                                <th class="py-3 px-4 font-semibold text-center">Progress (%)</th>
                                 <th class="py-3 px-4 font-semibold text-right">Executed Value (ETB)</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-700 text-sm text-slate-200" id="boq-tbody"></tbody>
                         <tfoot>
                             <tr class="bg-slate-900/90 font-bold text-white border-t-2 border-slate-600">
-                                <td colspan="2" class="py-4 px-4 text-right uppercase tracking-wider">Total Project Valuation:</td>
-                                <td class="py-4 px-4 text-right text-blue-300" id="total-contract-cell">1,294,631,965.36</td>
-                                <td class="py-4 px-4 text-center text-amber-400" id="total-progress-cell">81.65%</td>
-                                <td class="py-4 px-4 text-right text-emerald-400" id="total-executed-cell">1,057,006,874.03</td>
+                                <td colspan="3" class="py-4 px-4 text-right uppercase tracking-wider">Total Project Valuation:</td>
+                                <td class="py-4 px-4 text-right text-blue-300" id="total-contract-cell">0.00</td>
+                                <td class="py-4 px-4 text-center text-amber-400" id="total-progress-cell">0.00%</td>
+                                <td class="py-4 px-4 text-right text-emerald-400" id="total-executed-cell">0.00</td>
                             </tr>
                         </tfoot>
                     </table>
@@ -169,16 +177,55 @@
             </div>
         </div>
 
-        <!-- TAB 2: URGENT SNAGS -->
-        <div id="tab-snags" class="space-y-6 hidden">
+        <!-- TAB 2: REMAINING WORKS ANALYSIS -->
+        <div id="tab-remaining" class="space-y-6 hidden">
             <div class="bg-slate-800 border border-slate-700 rounded-2xl shadow-xl p-6">
-                <h2 class="text-lg font-bold text-white mb-2">Site Directive (SI 017) & Urgent Snag Tracking</h2>
-                <p class="text-xs text-slate-400 mb-6">Immediate remediation tasks for terminal electrical power, door locksets, plumbing, and baggage handling shutters.</p>
-                <div class="space-y-3" id="snags-checklist-container"></div>
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-6 border-b border-slate-700 gap-4">
+                    <div>
+                        <h2 class="text-lg font-bold text-white">Remaining Works Analysis & Pending Contract Items</h2>
+                        <p class="text-xs text-slate-400">Filtering sub-items with less than 100% progress, highlighting unexecuted contract values and critical path components.</p>
+                    </div>
+                    <div class="bg-rose-500/10 border border-rose-500/30 px-4 py-2 rounded-xl text-rose-400 font-mono text-sm" id="remaining-total-badge">
+                        Total Remaining: 237,625,091.33 ETB
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto mt-6">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-900/70 text-slate-400 uppercase text-xs tracking-wider border-b border-slate-700">
+                                <th class="py-3 px-4 font-semibold">Item Code</th>
+                                <th class="py-3 px-4 font-semibold">Description of Works</th>
+                                <th class="py-3 px-4 font-semibold">Category</th>
+                                <th class="py-3 px-4 font-semibold text-right">Contract Amount (ETB)</th>
+                                <th class="py-3 px-4 font-semibold text-center">Current Progress</th>
+                                <th class="py-3 px-4 font-semibold text-right">Remaining Value (ETB)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-700 text-sm text-slate-200" id="remaining-tbody"></tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
-        <!-- TAB 3: AI PHOTO INSPECTION LOG -->
+        <!-- TAB 3: SNAG LIST & SI 017 -->
+        <div id="tab-snags" class="space-y-6 hidden">
+            <div class="bg-slate-800 border border-slate-700 rounded-2xl shadow-xl p-6">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-6 border-b border-slate-700 gap-4">
+                    <div>
+                        <h2 class="text-lg font-bold text-white">Site Directive (SI 017) & Comprehensive Snag List</h2>
+                        <p class="text-xs text-slate-400">Tracking active site rectifications, dead-lines, and Resident Engineer sign-offs.</p>
+                    </div>
+                    <button onclick="addSnagModal()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow transition flex items-center space-x-2">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Add New Snag</span>
+                    </button>
+                </div>
+                <div class="space-y-3 mt-6" id="snags-checklist-container"></div>
+            </div>
+        </div>
+
+        <!-- TAB 4: AI PHOTO INSPECTION LOG -->
         <div id="tab-photos" class="space-y-6 hidden">
             <div class="bg-slate-800 border border-slate-700 rounded-2xl shadow-xl p-6">
                 <div class="flex items-center justify-between pb-6 border-b border-slate-700">
@@ -195,7 +242,7 @@
             </div>
         </div>
 
-        <!-- TAB 4: DISCIPLINE QUALITY HUB -->
+        <!-- TAB 5: DISCIPLINE QUALITY HUB -->
         <div id="tab-hub" class="space-y-6 hidden">
             <div class="bg-slate-800 border border-slate-700 rounded-2xl shadow-xl p-6">
                 <h2 class="text-lg font-bold text-white mb-2">Discipline Inspection & Quality Checklist Hub</h2>
@@ -204,11 +251,11 @@
             </div>
         </div>
 
-        <!-- TAB 5: ANALYTICS CHARTS -->
+        <!-- TAB 6: ANALYTICS CHARTS -->
         <div id="tab-analytics" class="space-y-6 hidden">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div class="bg-slate-800 border border-slate-700 rounded-2xl shadow-xl p-6">
-                    <h3 class="text-base font-bold text-white mb-4">Contract Amount vs. Executed Value by Discipline</h3>
+                    <h3 class="text-base font-bold text-white mb-4">Contract Amount vs. Executed Value by Category</h3>
                     <div class="h-80 relative flex items-center justify-center">
                         <canvas id="barChart"></canvas>
                     </div>
@@ -231,20 +278,75 @@
 
     <!-- Application Script -->
     <script>
-        const boqData = [
-            { id: 1, name: "Demolition Works", contract: 9900000.00, executed: 9820800.00, progress: 0.992 },
-            { id: 2, name: "Structural Works", contract: 11333775.92, executed: 11299774.59, progress: 0.997 },
-            { id: 3, name: "Finishing Works", contract: 239123163.72, executed: 218845519.44, progress: 0.9152 },
-            { id: 4, name: "ACMV Works", contract: 155119536.00, executed: 107547929.37, progress: 0.6933 },
-            { id: 5, name: "Firefighting System Works", contract: 15759998.65, executed: 8667999.26, progress: 0.55 },
-            { id: 6, name: "Plumbing and Sanitary Works", contract: 19748183.62, executed: 16242881.03, progress: 0.8225 },
-            { id: 7, name: "Electrical and ICT Works", contract: 415403544.80, executed: 265232047.83, progress: 0.6385 },
-            { id: 8, name: "External Works", contract: 275204660.39, executed: 267223725.24, progress: 0.971 },
-            { id: 9, name: "Design Fee", contract: 38925979.96, executed: 38925979.96, progress: 1.0 },
-            { id: 10, name: "Security Fence, Perimeter Fence & Watch Tower", contract: 114113122.30, executed: 113200217.32, progress: 0.992 }
+        let boqItems = [
+            { id: "1.1.1", name: "Floor finishes demolition & cartaway", cat: "1. Demolition Works", contract: 2970000.00, progress: 100 },
+            { id: "1.1.2", name: "Wall finishes demolition & cartaway", cat: "1. Demolition Works", contract: 990000.00, progress: 100 },
+            { id: "1.1.3", name: "Ceiling finishes demolition & cartaway", cat: "1. Demolition Works", contract: 990000.00, progress: 100 },
+            { id: "1.1.4", name: "Aluminum window and doors demolition & cartaway", cat: "1. Demolition Works", contract: 990000.00, progress: 100 },
+            { id: "1.2.1", name: "Arrival area floor finishes demolition", cat: "1. Demolition Works", contract: 1485000.00, progress: 98 },
+            { id: "1.2.2", name: "Arrival area wall finishes demolition", cat: "1. Demolition Works", contract: 990000.00, progress: 98 },
+            { id: "1.2.3", name: "Arrival area ceiling finishes demolition", cat: "1. Demolition Works", contract: 495000.00, progress: 98 },
+            { id: "1.2.4", name: "Arrival aluminum doors/windows demolition", cat: "1. Demolition Works", contract: 990000.00, progress: 98 },
+
+            { id: "2.1.1", name: "Staircase Steel Structure RHS Frames", cat: "2. Structural Works", contract: 1700066.39, progress: 100 },
+            { id: "2.1.2", name: "Staircase Metal Plates", cat: "2. Structural Works", contract: 566688.80, progress: 100 },
+            { id: "2.1.3", name: "Staircase Metal Sheets", cat: "2. Structural Works", contract: 1133377.59, progress: 100 },
+            { id: "2.1.4", name: "Staircase Handrails", cat: "2. Structural Works", contract: 1133377.59, progress: 97 },
+            { id: "2.2.1", name: "Toilet & Prayer Room Steel Frame", cat: "2. Structural Works", contract: 6800265.55, progress: 100 },
+
+            { id: "3.1.1", name: "Aluminum Strip Ceilings", cat: "3. Finishing Works", contract: 23912316.37, progress: 99 },
+            { id: "3.1.2", name: "Calcium Silicate Board Ceilings", cat: "3. Finishing Works", contract: 11956158.19, progress: 95 },
+            { id: "3.1.3", name: "Wooden Panel Ceilings", cat: "3. Finishing Works", contract: 4782463.27, progress: 0 },
+            { id: "3.1.4", name: "Gypsum Board Ceilings", cat: "3. Finishing Works", contract: 7173694.91, progress: 95 },
+            { id: "3.2.1", name: "Internal Granite Flooring Works", cat: "3. Finishing Works", contract: 26303548.01, progress: 98 },
+            { id: "3.2.2", name: "External Granite Flooring Works", cat: "3. Finishing Works", contract: 19129853.10, progress: 99 },
+            { id: "3.2.3", name: "Ceramic Flooring Works", cat: "3. Finishing Works", contract: 4782463.27, progress: 96 },
+            { id: "3.2.4", name: "Carpet Finish Works", cat: "3. Finishing Works", contract: 2391231.64, progress: 0 },
+            { id: "3.2.5", name: "Epoxy Finish Works", cat: "3. Finishing Works", contract: 2391231.64, progress: 80 },
+            { id: "3.3.1", name: "Ceramic Wall Finish Works", cat: "3. Finishing Works", contract: 11956158.19, progress: 96 },
+            { id: "3.3.2", name: "WPC Panel Works", cat: "3. Finishing Works", contract: 9564926.55, progress: 96 },
+            { id: "3.3.3", name: "Corrugated Aluminum Panel Works", cat: "3. Finishing Works", contract: 7173694.91, progress: 90 },
+            { id: "3.3.4", name: "HPL Partition Works", cat: "3. Finishing Works", contract: 4782463.27, progress: 92 },
+            { id: "3.3.5", name: "Stainless Steel Fender", cat: "3. Finishing Works", contract: 2391231.64, progress: 90 },
+            { id: "3.4.1", name: "Aluminum Partition Works", cat: "3. Finishing Works", contract: 7173694.91, progress: 90 },
+            { id: "3.4.2", name: "Aluminum Window & Doors", cat: "3. Finishing Works", contract: 11956158.19, progress: 90 },
+            { id: "3.5.2", name: "Internal Paint on Ceilings", cat: "3. Finishing Works", contract: 4782463.27, progress: 97 },
+            { id: "3.5.3", name: "Internal Paint on Walls", cat: "3. Finishing Works", contract: 7173694.91, progress: 95 },
+            { id: "3.5.5", name: "External Painting", cat: "3. Finishing Works", contract: 11956158.19, progress: 90 },
+            { id: "3.9.2", name: "Installation of New Roof Waterproofing", cat: "3. Finishing Works", contract: 26303548.01, progress: 90 },
+
+            { id: "4.1", name: "ACMV Support Hangers Stiffness & Tightness", cat: "4. ACMV Works", contract: 70000.00, progress: 100 },
+            { id: "4.3", name: "Cleaning of Ducts Internal & External", cat: "4. ACMV Works", contract: 4487264.99, progress: 100 },
+            { id: "4.8", name: "Reinstallation of All Duct Insulation", cat: "4. ACMV Works", contract: 17004896.21, progress: 75 },
+            { id: "4.9", name: "Cleaning of Chilled Water Pipes & Pressure Test", cat: "4. ACMV Works", contract: 4686287.20, progress: 100 },
+            { id: "4.21", name: "Dismantling & Reinstallation of Chilled Water Pumps", cat: "4. ACMV Works", contract: 8500000.00, progress: 80 },
+            { id: "4.25", name: "Water Softener Supply & Installation", cat: "4. ACMV Works", contract: 12830400.00, progress: 50 },
+            { id: "4.41.1", name: "VRF Outdoor Unit (73.7 kW)", cat: "4. ACMV Works", contract: 4918320.00, progress: 0 },
+
+            { id: "5.1", name: "Fire Pump Set & Motor Assembly", cat: "5. Firefighting Works", contract: 4000000.00, progress: 60 },
+            { id: "5.2", name: "Main Fire Suppression Pipe Network", cat: "5. Firefighting Works", contract: 5000000.00, progress: 70 },
+            { id: "5.3", name: "Sprinkler Heads and Branch Lines", cat: "5. Firefighting Works", contract: 3759998.65, progress: 50 },
+            { id: "5.6", name: "Fire Water Storage Tanks", cat: "5. Firefighting Works", contract: 3000000.00, progress: 0 },
+
+            { id: "6.1", name: "Main Drainage and Soil Stack Piping", cat: "6. Plumbing & Sanitary Works", contract: 5000000.00, progress: 90 },
+            { id: "6.2", name: "Water Supply PPR Pipe Network", cat: "6. Plumbing & Sanitary Works", contract: 5000000.00, progress: 85 },
+            { id: "6.3", name: "Sanitary Fixtures (WCs, Basins, Urinals)", cat: "6. Plumbing & Sanitary Works", contract: 9748183.62, progress: 75 },
+
+            { id: "7.1.1", name: "Main Distribution Boards & Cabling", cat: "7. Electrical & ICT Works", contract: 150000000.00, progress: 75 },
+            { id: "7.1.5", name: "Interior & Exterior Lighting Fixtures", cat: "7. Electrical & ICT Works", contract: 85000000.00, progress: 70 },
+            { id: "7.1.11", name: "Backup Generators", cat: "7. Electrical & ICT Works", contract: 16620000.00, progress: 0 },
+            { id: "7.1.12", name: "Main Transformers", cat: "7. Electrical & ICT Works", contract: 16620000.00, progress: 0 },
+            { id: "7.2.1", name: "ICT Structured Cabling & Server Room ELV", cat: "7. Electrical & ICT Works", contract: 147163544.80, progress: 60 },
+
+            { id: "8.1", name: "External Road Asphalt & Parking Surfacing", cat: "8. External Works", contract: 175204660.39, progress: 98 },
+            { id: "8.2", name: "Stormwater Drainage Ditches & Culverts", cat: "8. External Works", contract: 100000000.00, progress: 95 },
+
+            { id: "9.1", name: "Design & Engineering Fee", cat: "9. Design Fee", contract: 38925979.96, progress: 100 },
+
+            { id: "10.1", name: "Security Fence, Perimeter & Watch Tower", cat: "10. Security Fence & Watch Tower", contract: 114113122.30, progress: 99.2 }
         ];
 
-        const snagItems = [
+        let snagItems = [
             { id: "snag_1", label: "SI-01: Terminal-Wide Electrical & Office Power Interruption Rectification", sublines: "48h Deadline | Progress: 100% (Stabilized)", cat: "Urgent Snags (SI 017)", checked: true },
             { id: "snag_2", label: "SI-02: All Terminal & Office Doors - Missing Locksets & Hardware", sublines: "4-day Deadline | Progress: 80%", cat: "Urgent Snags (SI 017)", checked: false },
             { id: "snag_3", label: "SI-03: Office Toilets - Urinal Backflow & Drainage Overflow", sublines: "Immediate/48h | Progress: 90%", cat: "Urgent Snags (SI 017)", checked: false },
@@ -269,36 +371,49 @@
             return amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         }
 
+        function renderAll() {
+            renderBOQ();
+            renderRemainingWorks();
+            renderSnags();
+            renderPhotos();
+            renderHub();
+        }
+
         function renderBOQ() {
             const tbody = document.getElementById('boq-tbody');
             tbody.innerHTML = '';
-            let totalContract = 0, totalExecuted = 0;
+            
+            let totalContract = 0;
+            let totalExecuted = 0;
 
-            boqData.forEach((item, index) => {
+            boqItems.forEach((item, index) => {
+                let executed = item.contract * (item.progress / 100);
                 totalContract += item.contract;
-                totalExecuted += item.executed;
-                let pct = (item.progress * 100).toFixed(2);
+                totalExecuted += executed;
 
                 let tr = document.createElement('tr');
                 tr.className = index % 2 === 0 ? 'bg-slate-800/40 hover:bg-slate-700/50 transition' : 'bg-slate-800/90 hover:bg-slate-700/50 transition';
                 tr.innerHTML = `
                     <td class="py-3 px-4 font-mono text-slate-400 text-xs">${item.id}</td>
                     <td class="py-3 px-4 font-medium text-white">${item.name}</td>
+                    <td class="py-3 px-4 text-xs text-blue-300 font-medium">${item.cat}</td>
                     <td class="py-3 px-4 text-right font-mono">${formatETB(item.contract)}</td>
                     <td class="py-3 px-4 text-center">
                         <div class="flex items-center justify-center space-x-2">
-                            <input type="range" min="0" max="100" step="0.1" value="${pct}" 
+                            <input type="range" min="0" max="100" step="0.5" value="${item.progress}" 
                                 class="w-24 accent-amber-400 cursor-pointer" 
-                                oninput="updateProgress(${index}, this.value)">
-                            <span class="font-mono text-xs text-amber-400 w-12 text-right" id="pct-txt-${index}">${pct}%</span>
+                                oninput="updateItemProgress(${index}, this.value)">
+                            <span class="font-mono text-xs text-amber-400 w-12 text-right" id="pct-txt-${index}">${item.progress.toFixed(1)}%</span>
                         </div>
                     </td>
-                    <td class="py-3 px-4 text-right font-mono text-emerald-400 font-semibold" id="exec-txt-${index}">${formatETB(item.executed)}</td>
+                    <td class="py-3 px-4 text-right font-mono text-emerald-400 font-semibold" id="exec-txt-${index}">${formatETB(executed)}</td>
                 `;
                 tbody.appendChild(tr);
             });
 
-            let overallProgress = (totalExecuted / totalContract) * 100;
+            let overallProgress = totalContract > 0 ? (totalExecuted / totalContract) * 100 : 0;
+            let remainingVal = totalContract - totalExecuted;
+            
             document.getElementById('total-contract-cell').innerText = formatETB(totalContract);
             document.getElementById('total-executed-cell').innerText = formatETB(totalExecuted);
             document.getElementById('total-progress-cell').innerText = overallProgress.toFixed(2) + '%';
@@ -307,19 +422,22 @@
             document.getElementById('kpi-executed').innerText = formatETB(totalExecuted);
             document.getElementById('kpi-progress').innerText = overallProgress.toFixed(2);
             document.getElementById('kpi-progress-bar').style.width = overallProgress.toFixed(2) + '%';
+            document.getElementById('kpi-remaining-val').innerText = (remainingVal / 1000000).toFixed(1) + 'M';
         }
 
-        function updateProgress(index, val) {
-            let p = parseFloat(val) / 100;
-            boqData[index].progress = p;
-            boqData[index].executed = boqData[index].contract * p;
+        function updateItemProgress(index, val) {
+            let p = parseFloat(val);
+            boqItems[index].progress = p;
+            let executed = boqItems[index].contract * (p / 100);
 
-            document.getElementById(`pct-txt-${index}`).innerText = parseFloat(val).toFixed(1) + '%';
-            document.getElementById(`exec-txt-${index}`).innerText = formatETB(boqData[index].executed);
+            document.getElementById(`pct-txt-${index}`).innerText = p.toFixed(1) + '%';
+            document.getElementById(`exec-txt-${index}`).innerText = formatETB(executed);
 
-            let totalContract = boqData.reduce((sum, item) => sum + item.contract, 0);
-            let totalExecuted = boqData.reduce((sum, item) => sum + item.executed, 0);
+            // Recalculate totals
+            let totalContract = boqItems.reduce((sum, item) => sum + item.contract, 0);
+            let totalExecuted = boqItems.reduce((sum, item) => sum + (item.contract * (item.progress / 100)), 0);
             let overallProgress = (totalExecuted / totalContract) * 100;
+            let remainingVal = totalContract - totalExecuted;
 
             document.getElementById('total-contract-cell').innerText = formatETB(totalContract);
             document.getElementById('total-executed-cell').innerText = formatETB(totalExecuted);
@@ -329,30 +447,90 @@
             document.getElementById('kpi-executed').innerText = formatETB(totalExecuted);
             document.getElementById('kpi-progress').innerText = overallProgress.toFixed(2);
             document.getElementById('kpi-progress-bar').style.width = overallProgress.toFixed(2) + '%';
+            document.getElementById('kpi-remaining-val').innerText = (remainingVal / 1000000).toFixed(1) + 'M';
+
+            renderRemainingWorks();
         }
 
-        function resetData() {
-            boqData[0].progress = 0.992; boqData[0].executed = 9820800.00;
-            boqData[1].progress = 0.997; boqData[1].executed = 11299774.59;
-            boqData[2].progress = 0.9152; boqData[2].executed = 218845519.44;
-            boqData[3].progress = 0.6933; boqData[3].executed = 107547929.37;
-            boqData[4].progress = 0.55; boqData[4].executed = 8667999.26;
-            boqData[5].progress = 0.8225; boqData[5].executed = 16242881.03;
-            boqData[6].progress = 0.6385; boqData[6].executed = 265232047.83;
-            boqData[7].progress = 0.971; boqData[7].executed = 267223725.24;
-            boqData[8].progress = 1.0; boqData[8].executed = 38925979.96;
-            boqData[9].progress = 0.992; boqData[9].executed = 113200217.32;
-            renderBOQ();
+        function renderRemainingWorks() {
+            const tbody = document.getElementById('remaining-tbody');
+            tbody.innerHTML = '';
+            
+            let totalRemaining = 0;
+            let filtered = boqItems.filter(item => item.progress < 100);
+
+            filtered.forEach((item, index) => {
+                let executed = item.contract * (item.progress / 100);
+                let remaining = item.contract - executed;
+                totalRemaining += remaining;
+
+                let tr = document.createElement('tr');
+                tr.className = index % 2 === 0 ? 'bg-slate-800/40 hover:bg-slate-700/50 transition' : 'bg-slate-800/90 hover:bg-slate-700/50 transition';
+                tr.innerHTML = `
+                    <td class="py-3 px-4 font-mono text-slate-400 text-xs">${item.id}</td>
+                    <td class="py-3 px-4 font-medium text-white">${item.name}</td>
+                    <td class="py-3 px-4 text-xs text-blue-300 font-medium">${item.cat}</td>
+                    <td class="py-3 px-4 text-right font-mono">${formatETB(item.contract)}</td>
+                    <td class="py-3 px-4 text-center font-mono text-amber-400">${item.progress.toFixed(1)}%</td>
+                    <td class="py-3 px-4 text-right font-mono text-rose-400 font-semibold">${formatETB(remaining)}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('remaining-total-badge').innerText = `Total Remaining: ${formatETB(totalRemaining)} ETB`;
         }
 
-        function renderChecklist(containerId, items) {
-            const container = document.getElementById(containerId);
+        function resetBOQ() {
+            renderAll();
+        }
+
+        function renderSnags() {
+            const container = document.getElementById('snags-checklist-container');
             container.innerHTML = '';
-            items.forEach((item, idx) => {
+            snagItems.forEach((item, idx) => {
                 let div = document.createElement('div');
                 div.className = 'flex items-start space-x-3 bg-slate-900/60 p-4 rounded-xl border border-slate-700 hover:border-slate-600 transition';
                 div.innerHTML = `
-                    <input type="checkbox" ${item.checked ? 'checked' : ''} onclick="toggleItem('${containerId}', ${idx})" class="mt-1 w-5 h-5 accent-blue-500 rounded cursor-pointer">
+                    <input type="checkbox" ${item.checked ? 'checked' : ''} onclick="toggleSnag(${idx})" class="mt-1 w-5 h-5 accent-blue-500 rounded cursor-pointer">
+                    <div class="flex-1">
+                        <div class="text-sm font-semibold text-white ${item.checked ? 'line-through text-slate-400' : ''}">${item.label}</div>
+                        <div class="text-xs text-slate-400 mt-1">${item.sublines}</div>
+                        <span class="inline-block mt-2 text-[10px] bg-corporate-600/80 text-amber-300 font-mono px-2 py-0.5 rounded">${item.cat}</span>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+            document.getElementById('kpi-snag-count').innerText = snagItems.filter(s => !s.checked).length + ' Active Snags';
+        }
+
+        function toggleSnag(idx) {
+            snagItems[idx].checked = !snagItems[idx].checked;
+            renderSnags();
+        }
+
+        function addSnagModal() {
+            let label = prompt("Enter Site Directive or Snag Description (e.g., SI-06: ...");
+            if(!label) return;
+            let sublines = prompt("Enter deadline & progress notes:", "48h Deadline | Progress: 0%");
+            snagItems.push({
+                id: "snag_" + (snagItems.length + 1),
+                label: label,
+                sublines: sublines,
+                cat: "Urgent Snags (SI 017)",
+                checked: false
+            });
+            renderSnags();
+            alert("New snag added successfully!");
+        }
+
+        function renderHub() {
+            const container = document.getElementById('hub-checklist-container');
+            container.innerHTML = '';
+            hubItems.forEach((item, idx) => {
+                let div = document.createElement('div');
+                div.className = 'flex items-start space-x-3 bg-slate-900/60 p-4 rounded-xl border border-slate-700 hover:border-slate-600 transition';
+                div.innerHTML = `
+                    <input type="checkbox" ${item.checked ? 'checked' : ''} onclick="toggleHub(${idx})" class="mt-1 w-5 h-5 accent-blue-500 rounded cursor-pointer">
                     <div class="flex-1">
                         <div class="text-sm font-semibold text-white ${item.checked ? 'line-through text-slate-400' : ''}">${item.label}</div>
                         <div class="text-xs text-slate-400 mt-1">${item.sublines}</div>
@@ -363,9 +541,9 @@
             });
         }
 
-        function toggleItem(containerId, idx) {
-            if(containerId === 'snags-checklist-container') snagItems[idx].checked = !snagItems[idx].checked;
-            if(containerId === 'hub-checklist-container') hubItems[idx].checked = !hubItems[idx].checked;
+        function toggleHub(idx) {
+            hubItems[idx].checked = !hubItems[idx].checked;
+            renderHub();
         }
 
         function renderPhotos() {
@@ -415,7 +593,7 @@
         }
 
         function switchTab(tab) {
-            ['boq', 'snags', 'photos', 'hub', 'analytics'].forEach(t => {
+            ['boq', 'remaining', 'snags', 'photos', 'hub', 'analytics'].forEach(t => {
                 document.getElementById(`tab-${t}`).classList.add('hidden');
                 document.getElementById(`btn-${t}`).classList.remove('border-blue-500', 'text-blue-400');
                 document.getElementById(`btn-${t}`).classList.add('border-transparent', 'text-slate-400');
@@ -424,6 +602,7 @@
             document.getElementById(`btn-${tab}`).classList.add('border-blue-500', 'text-blue-400');
             document.getElementById(`btn-${tab}`).classList.remove('border-transparent', 'text-slate-400');
 
+            if(tab === 'remaining') renderRemainingWorks();
             if(tab === 'analytics') initCharts();
         }
 
@@ -432,9 +611,16 @@
             if(chartsInitialized) return;
             chartsInitialized = true;
 
-            const labels = boqData.map(d => d.name.length > 20 ? d.name.substring(0, 18) + '...' : d.name);
-            const contractVals = boqData.map(d => d.contract / 1000000);
-            const executedVals = boqData.map(d => d.executed / 1000000);
+            let catMap = {};
+            boqItems.forEach(item => {
+                if(!catMap[item.cat]) catMap[item.cat] = { contract: 0, executed: 0 };
+                catMap[item.cat].contract += item.contract;
+                catMap[item.cat].executed += item.contract * (item.progress / 100);
+            });
+
+            let labels = Object.keys(catMap).map(c => c.length > 22 ? c.substring(0, 20) + '...' : c);
+            let contractVals = Object.values(catMap).map(v => v.contract / 1000000);
+            let executedVals = Object.values(catMap).map(v => v.executed / 1000000);
 
             const ctxBar = document.getElementById('barChart').getContext('2d');
             new Chart(ctxBar, {
@@ -451,7 +637,7 @@
                     maintainAspectRatio: false,
                     plugins: { legend: { labels: { color: '#cbd5e1' } } },
                     scales: {
-                        x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: '#334155' } },
+                        x: { ticks: { color: '#94a3b8', font: { size: 9 } }, grid: { color: '#334155' } },
                         y: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' } }
                     }
                 }
@@ -481,10 +667,7 @@
         function exportReport() { alert("Generating client progress transmittal spreadsheet export..."); }
 
         window.onload = function() {
-            renderBOQ();
-            renderChecklist('snags-checklist-container', snagItems);
-            renderPhotos();
-            renderChecklist('hub-checklist-container', hubItems);
+            renderAll();
         };
     </script>
 </body>
